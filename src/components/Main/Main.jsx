@@ -1,25 +1,30 @@
+import { useContext } from 'react';
 import { Card, CardContent, Typography, CardHeader, Divider  } from '@mui/material';
 import Form from './Form/Form';
 import ListComponent from './List/ListComponent';
 
+import { BudgetContext } from '../../context/budgetContext';
 
 const Main = () => {
+  const { transactions } = useContext(BudgetContext);
+  const total = transactions.reduce((sum, transaction) => {
+    if(transaction.type === 'Income') return sum += transaction.amount;
+    else return sum -= transaction.amount;
+  }, 0);
+  
   return (
     <Card sx={{ minWidth: '20rem', maxWidth: '40rem',  height: '90%'}}>
         <CardHeader title="Expense Tracker"  subheader="Made with &#128147; by Kosu" />
         <CardContent>
           <Typography variant="h5" component="div" align="center">
-            Total Balance &#x20B9;550
+            Total Balance &#x20B9;{total}
           </Typography>
           <Typography variant="body1" align="center">
-            Try Saying <br/> Add Expense &#x20B9;50 for Category Travel for Thursday
+            Try Saying <br/> Add Expense 50 for Category Travel for Thursday
           </Typography>
           <Divider light />
           <Form/>
           <Divider light />
-          <Typography variant="body1" sx={{ mt: "1rem" }} >
-            Transactions history
-          </Typography>
           <ListComponent/>
         </CardContent>
     </Card>

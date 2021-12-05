@@ -1,49 +1,31 @@
-import { List, ListItem, ListItemAvatar, Avatar, ListItemText, IconButton } from '@mui/material';
-import { Garage, Restaurant, Delete } from '@mui/icons-material';
+import { useContext } from 'react';
+import { List, Typography } from '@mui/material';
+
+import Transaction from './Transaction';
+import { BudgetContext } from '../../../context/budgetContext';
+
 
 const ListComponent = () => {
+    const { transactions } = useContext(BudgetContext);
+
     return (
         <>
+            {
+                transactions.length > 0 ?
+                (
+                    <Typography variant="body1" sx={{ mt: "1rem" }} >
+                        Transactions history
+                    </Typography>
+                ) : ''
+            }
             <List sx={{ maxHeight: '150px', overflow: 'auto' }}>
-                <ListItem 
-                    secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                            <Delete />
-                        </IconButton>
-                }>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <Garage />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Travel" secondary="&#x20B9;50" />
-                </ListItem>
-                <ListItem 
-                    secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                            <Delete />
-                        </IconButton>
-                }>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <Garage />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Travel" secondary="&#x20B9;30" />
-                </ListItem>
-                <ListItem 
-                    secondaryAction={
-                        <IconButton edge="end" aria-label="delete">
-                            <Delete />
-                        </IconButton>
-                }>
-                    <ListItemAvatar>
-                    <Avatar>
-                        <Restaurant />
-                    </Avatar>
-                    </ListItemAvatar>
-                    <ListItemText primary="Food" secondary="&#x20B9;150" />
-                </ListItem>
+                {
+                    transactions.map(transaction => (
+                        <>
+                            <Transaction transaction={transaction}/>
+                        </>
+                    ))
+                }
             </List> 
         </>
     )
