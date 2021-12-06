@@ -1,9 +1,20 @@
 import { Grid } from '@mui/material';
+import { useContext, useEffect } from 'react';
+
 import './App.css';
+
 import Main from './components/Main/Main';
 import Stats from './components/Stats/Stats';
 
+import  { BudgetContext } from './context/budgetContext'; 
+
 const App = () => {
+    const { loadTransactions } = useContext(BudgetContext);
+
+    useEffect(() => {
+        loadTransactions();
+    }, []);
+
     return (
         <>
             <Grid container spacing={1} alignItems="center" justifyContent="center" alignContent="center">
