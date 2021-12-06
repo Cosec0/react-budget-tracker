@@ -6,7 +6,7 @@ import Stats from './components/Stats/Stats';
 const App = () => {
     return (
         <>
-            <Grid container spacing={2} alignItems="center" justifyContent="center" alignContent="center">
+            <Grid container spacing={1} alignItems="center" justifyContent="center" alignContent="center">
                 <Grid item sm={12} lg={4} order={{ lg: 1, xs: 2 }} display="flex" justifyContent="center">
                     <Stats title="Income"/>
                 </Grid>

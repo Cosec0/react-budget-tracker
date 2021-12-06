@@ -17,7 +17,7 @@ const Main = () => {
         <CardHeader title="Expense Tracker"  subheader="Made with &#128147; by Kosu" />
         <CardContent>
           <Typography variant="h5" component="div" align="center">
-            Total Balance &#x20B9;{total}
+            Total Balance {total < 0 ? '-' : ''}&#x20B9;{Math.abs(total)}
           </Typography>
           <Typography variant="body1" align="center">
             Try Saying <br/> Add Expense 50 for Category Travel for Thursday

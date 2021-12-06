@@ -6,22 +6,24 @@ import { expenseCategories, incomeCategories } from '../../../constants/categori
 import formatDate from '../../../utils/formatDate';
 import { BudgetContext } from '../../../context/budgetContext';
 
+const initialState = {
+    type: 'Income',
+    category: '',
+    amount: 0,
+    date: formatDate(new Date())
+};
+
 const Form = () => {
     const { addTransaction } = useContext(BudgetContext); 
-    const [formData, setFormData] = useState({
-        type: 'Income',
-        category: '',
-        amount: 0,
-        date: formatDate(new Date())
-    });
+    const [formData, setFormData] = useState(initialState);
 
     const selectedCategory = formData.type === 'Income' ? incomeCategories : expenseCategories;
-    //setFormData(prev => ({...prev, category: selectedCategory[0].type}));
 
     const handleFormSubmit = (e) => {
         e.preventDefault();
         const newTransaction = { id: uuidv4(), ...formData };
         addTransaction(newTransaction);
+        setFormData(initialState);
     }
 
     return (
