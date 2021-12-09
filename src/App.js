@@ -1,5 +1,6 @@
 import { Grid } from '@mui/material';
 import { useContext, useEffect } from 'react';
+import { PushToTalkButtonContainer, PushToTalkButton, ErrorPanel } from '@speechly/react-ui';
 
 import './App.css';
 
@@ -9,11 +10,11 @@ import Stats from './components/Stats/Stats';
 import  { BudgetContext } from './context/budgetContext'; 
 
 const App = () => {
-    const { loadTransactions } = useContext(BudgetContext);
+    const { transactions, loadTransactions } = useContext(BudgetContext);
 
     useEffect(() => {
         loadTransactions();
-    }, []);
+    }, [transactions]);
 
     return (
         <>
@@ -28,6 +29,10 @@ const App = () => {
                     <Stats title="Expense"/>
                 </Grid>
             </Grid>
+            <div className='float'>
+                <PushToTalkButton/>
+                <ErrorPanel/>
+            </div>
         </>
     )
 }

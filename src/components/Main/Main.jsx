@@ -1,11 +1,15 @@
 import { useContext } from 'react';
 import { Card, CardContent, Typography, CardHeader, Divider  } from '@mui/material';
+import { useSpeechContext } from '@speechly/react-client';
+
 import Form from './Form/Form';
 import ListComponent from './List/ListComponent';
 
 import { BudgetContext } from '../../context/budgetContext';
 
 const Main = () => {
+  const { segment } = useSpeechContext();
+
   const { transactions } = useContext(BudgetContext);
   const total = transactions.reduce((sum, transaction) => {
     if(transaction.type === 'Income') return sum += transaction.amount;
@@ -21,6 +25,18 @@ const Main = () => {
           </Typography>
           <Typography variant="body1" align="center">
             Try Saying <br/> Add Expense 50 for Category Travel for Thursday
+          </Typography>
+          <Divider light />
+          <Typography variant="subtitle" align="center">
+            {
+              segment && (
+                <>
+                  {
+                    segment.words.map(word => word.value).join(" ")
+                  }
+                </>
+              )
+            }
           </Typography>
           <Divider light />
           <Form/>

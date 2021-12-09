@@ -21,18 +21,18 @@ const Stats = ({ title }) => {
         <CardHeader title={`${title} Stats`}/>
         <CardContent>
           {
-            selectedCategories.map(category => (
-              <Chip label={category.type} size="small" sx={{ backgroundColor: category.color, color: 'white' }} />
-            ))
-          }
-          {
             total > 0 ?
             (
               <>
                 <Typography variant="h5">
                   ₹{total}
                 </Typography>
-                <Doughnut data={chartData} />
+                {
+                  selectedCategories.map(category => (
+                    <Chip label={category.type} size="small" sx={{ backgroundColor: category.color, color: 'white' }} />
+                  ))
+                }
+                <Doughnut data={chartData} style={{ padding: '1rem' }} />
               </>
             ) :
             (
