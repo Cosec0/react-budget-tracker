@@ -5,6 +5,7 @@ import { useSpeechContext } from '@speechly/react-client';
 
 import { expenseCategories, incomeCategories } from '../../../constants/categories';
 import formatDate from '../../../utils/formatDate';
+import toSentenceCase from '../../../utils/toTitleCase';
 import { BudgetContext } from '../../../context/budgetContext';
 
 const initialState = {
@@ -17,16 +18,51 @@ const initialState = {
 const Form = () => {
     const { addTransaction } = useContext(BudgetContext); 
     const [formData, setFormData] = useState(initialState);
-    //const { segment } = useSpeechContext();
+    const { segment } = useSpeechContext();
 
     const selectedCategory = formData.type === 'Income' ? incomeCategories : expenseCategories;
 
-    // useEffect(() => {
-    //     console.log('voice detected')
-    // }, [segment]);
+    useEffect(() => {
+        if(segment) {
+            if(segment.intent.intent === 'add_income') {
+                setFormData((prev) => ({ ...prev, type: 'Income' }))
+            }
+            else if(segment.intent.intent === 'add_expense') {
+                setFormData((prev) => ({ ...prev, type: 'Expense' }))
+            }
 
-    const handleFormSubmit = (e = null) => {
+            segment.entities.forEach((e) => {
+                let newCategory = '';
+                switch(e.type) {
+                    case 'amount':
+                        setFormData((prev) => ({ ...prev, amount: Number(e.value) }));
+                        break;
+                    case 'date':
+                        setFormData((prev) => ({ ...prev, date: e.value }));
+                        break;
+                    case 'category':
+                        newCategory = toSentenceCase(e.value);
+                        if(newCategory && (incomeCategories.map(iC => iC.type)).includes(newCategory)) {
+                            setFormData((prev) => ({ ...prev, type: 'Income', category: newCategory }));
+                        }
+                        else if(newCategory && (expenseCategories.map(eC => eC.type)).includes(newCategory)) {
+                            setFormData((prev) => ({ ...prev, type: 'Expense', category: newCategory }));
+                        }
+                        break;
+                }
+            })
+
+            if(segment.isFinal && formData.type && formData.amount && formData.category && formData.category) {
+                handleFormSubmit();
+            }
+        }
+    }, [segment]);
+
+    const handleFormSubmit = (e = null) => {        
         if(e) e.preventDefault();
+        
+        if(Number.isNaN(Number(formData.amount)) || !formData.date.includes('-')) return;
+
         const newTransaction = { id: uuidv4(), ...formData };
         addTransaction(newTransaction);
         setFormData(initialState);

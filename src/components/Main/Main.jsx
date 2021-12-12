@@ -26,7 +26,7 @@ const Main = () => {
           {
             !segment && (
               <Typography variant="body1" align="center">
-                Try Saying <br/> Add Expense 50 for Category Travel for Thursday
+                Try Saying <br/> Add Expense 50 in Category Travel for Thursday
               </Typography>
             )
           }
