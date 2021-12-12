@@ -23,14 +23,19 @@ const Main = () => {
           <Typography variant="h5" component="div" align="center">
             Total Balance {total < 0 ? '-' : ''}&#x20B9;{Math.abs(total)}
           </Typography>
-          <Typography variant="body1" align="center">
-            Try Saying <br/> Add Expense 50 for Category Travel for Thursday
-          </Typography>
+          {
+            !segment && (
+              <Typography variant="body1" align="center">
+                Try Saying <br/> Add Expense 50 for Category Travel for Thursday
+              </Typography>
+            )
+          }
           <Divider light />
           <Typography variant="subtitle" align="center">
             {
               segment && (
                 <>
+                  Voice Input: 
                   {
                     segment.words.map(word => word.value).join(" ")
                   }

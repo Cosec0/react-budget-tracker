@@ -1,6 +1,7 @@
 import { Grid, FormControl, Input, InputLabel, FormHelperText, Select, MenuItem, Button } from '@mui/material';
-import { useContext, useState } from 'react';
+import { useContext, useState, useEffect } from 'react';
 import { v4 as uuidv4 } from 'uuid';
+import { useSpeechContext } from '@speechly/react-client';
 
 import { expenseCategories, incomeCategories } from '../../../constants/categories';
 import formatDate from '../../../utils/formatDate';
@@ -16,11 +17,16 @@ const initialState = {
 const Form = () => {
     const { addTransaction } = useContext(BudgetContext); 
     const [formData, setFormData] = useState(initialState);
+    //const { segment } = useSpeechContext();
 
     const selectedCategory = formData.type === 'Income' ? incomeCategories : expenseCategories;
 
-    const handleFormSubmit = (e) => {
-        e.preventDefault();
+    // useEffect(() => {
+    //     console.log('voice detected')
+    // }, [segment]);
+
+    const handleFormSubmit = (e = null) => {
+        if(e) e.preventDefault();
         const newTransaction = { id: uuidv4(), ...formData };
         addTransaction(newTransaction);
         setFormData(initialState);

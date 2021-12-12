@@ -1,11 +1,7 @@
-import { useContext } from 'react';
-
-import { BudgetContext } from '../context/budgetContext';
 import { incomeCategories, expenseCategories, resetCategories } from '../constants/categories';
 
-const useTransactions = (title) => {
+const generateChartData = (title, transactions) => {
     resetCategories();
-    const { transactions } = useContext(BudgetContext);
 
     const seletedTransactions = transactions.filter(transaction => transaction.type === title);
 
@@ -39,4 +35,4 @@ const useTransactions = (title) => {
     return { total, chartData, selectedCategories };
 }
 
-export default useTransactions;
+export default generateChartData;

@@ -1,6 +1,6 @@
 import { Grid } from '@mui/material';
 import { useContext, useEffect } from 'react';
-import { PushToTalkButtonContainer, PushToTalkButton, ErrorPanel } from '@speechly/react-ui';
+import { PushToTalkButton, ErrorPanel } from '@speechly/react-ui';
 
 import './App.css';
 
@@ -14,7 +14,7 @@ const App = () => {
 
     useEffect(() => {
         loadTransactions();
-    }, [transactions]);
+    }, []);
 
     return (
         <>

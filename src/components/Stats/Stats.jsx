@@ -1,16 +1,22 @@
+import { useContext, useMemo } from 'react';
 import { Card, CardContent, Typography, CardHeader, Chip } from '@mui/material';
 import { Doughnut } from 'react-chartjs-2';
 import {Chart, ArcElement} from 'chart.js';
 import ChartDataLabels from 'chartjs-plugin-datalabels';
 
-import useTransactions from '../../utils/useTransactions';
+import { BudgetContext } from '../../context/budgetContext';
+
+import generateChartData from '../../utils/useTransactions';
 
 const Stats = ({ title }) => {
   Chart.register(ArcElement);
   Chart.register(ChartDataLabels);
+  const { transactions } = useContext(BudgetContext);
 
-  const { total, chartData, selectedCategories } = useTransactions(title);
-
+  const { total, chartData, selectedCategories } = useMemo(() => {
+    return generateChartData(title, transactions);
+  }, [transactions]);
+  
   return (
     <Card sx={{ 
       minWidth: '20rem',
