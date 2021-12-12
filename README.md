@@ -1,6 +1,6 @@
-# Getting Started with Create React App
+# A Budget Tracker React App with voice input using Speechly
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A budget tracker built with ReactJS, ChartJS and Speechly for voice input. State management is done using useReducer and useContext hooks. Transactions are stored in local storage of the browser and some dummy data is loaded in case no previous transactions related activity are found in local storage.
 
 ## Available Scripts
 
