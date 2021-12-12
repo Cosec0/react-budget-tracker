@@ -51,6 +51,8 @@ const Form = () => {
                             setFormData((prev) => ({ ...prev, type: 'Expense', category: newCategory }));
                         }
                         break;
+                    default:
+                        break;
                 }
             })
 

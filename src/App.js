@@ -10,7 +10,7 @@ import Stats from './components/Stats/Stats';
 import  { BudgetContext } from './context/budgetContext'; 
 
 const App = () => {
-    const { transactions, loadTransactions } = useContext(BudgetContext);
+    const { loadTransactions } = useContext(BudgetContext);
 
     useEffect(() => {
         loadTransactions();

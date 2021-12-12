@@ -1,3 +1,5 @@
+import dummyData from '../constants/dummyData';
+
 const budgetReducer = (state, action) => {
     let newState;
     switch(action.type) {   
@@ -14,7 +16,7 @@ const budgetReducer = (state, action) => {
                 return JSON.parse(localStorage.getItem('transactions'));
             }
             else {
-                return state;
+                return dummyData;
             }
         default:
             return state;
